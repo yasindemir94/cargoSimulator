@@ -54,7 +54,7 @@ export const useCargoStore = create<CargoState>((set, get) => ({
       if (Math.random() < 0.10) price = -Math.floor(Math.random() * 100); // %10 negatif fiyat
 
       data.push({
-        id: uuidv4(), // 👈 burada UUID v4 üretiyoruz
+        id: uuidv4(), 
         name: randomName(),
         category: categories[Math.floor(Math.random() * categories.length)],
         price,
