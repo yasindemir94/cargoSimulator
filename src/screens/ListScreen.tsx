@@ -28,6 +28,9 @@ export default function ListScreen() {
     'price_asc' | 'price_desc' | 'kg_asc' | 'kg_desc' | null
   >(null);
 
+  // Render süresi ölçümü
+  const [renderStart, setRenderStart] = useState<number | null>(null);
+
   // Toggle fonksiyonları
   const toggleCategory = (cat: string) => {
     setSelectedCategories(prev =>
@@ -53,6 +56,9 @@ export default function ListScreen() {
 
   // Filtreleme ve sıralama
   const filteredData = useMemo(() => {
+    // Render başlama zamanı
+    setRenderStart(Date.now());
+
     let filtered = data.filter(item => {
       if (
         selectedCategories.length > 0 &&
@@ -293,6 +299,13 @@ export default function ListScreen() {
             No results found
           </Text>
         }
+        // 🔥 Render bittiğinde süreyi hesapla (daha güvenilir)
+        onContentSizeChange={() => {
+          if (renderStart) {
+            const duration = Date.now() - renderStart;
+            console.log(`🔎 FlatList render süresi: ${duration} ms`);
+          }
+        }}
       />
 
       {/* Sayaç */}
