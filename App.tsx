@@ -31,11 +31,11 @@ export default function App() {
           component={ListStack}
           options={{ headerShown: false }}
         />
-        <Tab.Screen
+        {/*  <Tab.Screen
           name="sample"
           component={RecycleTestComponent}
           options={{ headerShown: false }}
-        />
+        /> */}
       </Tab.Navigator>
     </NavigationContainer>
   );
