@@ -1,19 +1,47 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  NativeModules,
+  Button,
+  Alert,
 } from 'react-native';
 import { useCargoStore } from '../store/cargoStore';
+import { getBatteryLevel } from '../nativeModule/BatteryModule';
+const { BiometricModule } = NativeModules;
 
 export default function CreateScreen() {
   const { createData, cleanData, reset, cargos, cleanCargos } = useCargoStore();
   const [count, setCount] = useState('1000');
 
+  const [battery, setBattery] = useState(null);
+
+  useEffect(() => {
+    getBatteryLevel().then(level => setBattery(level));
+  }, []);
+
+  const auth = async () => {
+    try {
+      const result = await BiometricModule.authenticate();
+      Alert.alert('Success ✅', result);
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : String(e);
+      Alert.alert('Failed ❌', message || 'Authentication failed');
+    }
+  };
+
   return (
     <View style={styles.container}>
+      <Text style={{ fontSize: 20 }}>Batarya Seviyesi:</Text>
+      <Text style={{ fontSize: 28, fontWeight: 'bold' }}>
+        {battery !== null ? `${battery}%` : 'Yükleniyor...'}
+      </Text>
+
+      <Button title="Login with Fingerprint/FaceID" onPress={auth} />
+
       <Text style={styles.title}>🚀 Cargo Data Generator</Text>
 
       {/* Input alanı */}

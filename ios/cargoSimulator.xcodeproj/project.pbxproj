@@ -12,6 +12,8 @@
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		B354BE649B22B216A1B4BEE7 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		C98D4AF32E5F37CB007A67CB /* BatteryModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98D4AF22E5F37BE007A67CB /* BatteryModule.swift */; };
+		C98D4AF72E5F3826007A67CB /* BatteryModuleBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = C98D4AF62E5F381E007A67CB /* BatteryModuleBridge.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,8 @@
 		64B4B2CEB8ECE8AB4BAE08C8 /* Pods-cargoSimulator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cargoSimulator.release.xcconfig"; path = "Target Support Files/Pods-cargoSimulator/Pods-cargoSimulator.release.xcconfig"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = cargoSimulator/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = cargoSimulator/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C98D4AF22E5F37BE007A67CB /* BatteryModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryModule.swift; sourceTree = "<group>"; };
+		C98D4AF62E5F381E007A67CB /* BatteryModuleBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BatteryModuleBridge.m; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FB9AA3882A940624A7C84070 /* Pods-cargoSimulator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cargoSimulator.debug.xcconfig"; path = "Target Support Files/Pods-cargoSimulator/Pods-cargoSimulator.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -42,6 +46,8 @@
 		13B07FAE1A68108700A75B9A /* cargoSimulator */ = {
 			isa = PBXGroup;
 			children = (
+				C98D4AF62E5F381E007A67CB /* BatteryModuleBridge.m */,
+				C98D4AF22E5F37BE007A67CB /* BatteryModule.swift */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				761780EC2CA45674006654EE /* AppDelegate.swift */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
@@ -247,6 +253,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				761780ED2CA45674006654EE /* AppDelegate.swift in Sources */,
+				C98D4AF72E5F3826007A67CB /* BatteryModuleBridge.m in Sources */,
+				C98D4AF32E5F37CB007A67CB /* BatteryModule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

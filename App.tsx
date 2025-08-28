@@ -8,7 +8,7 @@ import { ListStackParamList } from './src/types/navigation';
 import CreateScreen from './src/screens/CreateScreen';
 import ListScreen from './src/screens/ListScreen';
 import DetailScreen from './src/screens/DetailScreen';
-
+import RecycleTestComponent from './src/screens/Sample';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator<ListStackParamList>();
 
@@ -29,6 +29,11 @@ export default function App() {
         <Tab.Screen
           name="Cargos"
           component={ListStack}
+          options={{ headerShown: false }}
+        />
+        <Tab.Screen
+          name="sample"
+          component={RecycleTestComponent}
           options={{ headerShown: false }}
         />
       </Tab.Navigator>

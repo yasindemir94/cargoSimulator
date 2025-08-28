@@ -1,8 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import {
   View,
   Text,
-  FlatList,
   TouchableOpacity,
   TextInput,
   StyleSheet,
@@ -11,6 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ListStackParamList } from '../types/navigation';
 import { useCargoStore, categories, weightBuckets } from '../store/cargoStore';
+import { FlashList } from '@shopify/flash-list';
 
 export default function ListScreen() {
   const { cargos, cleanCargos } = useCargoStore();
@@ -30,6 +30,16 @@ export default function ListScreen() {
 
   // Render süresi ölçümü
   const [renderStart, setRenderStart] = useState<number | null>(null);
+
+  // Ölçüm için state
+  const [measuredHeights, setMeasuredHeights] = useState<number[]>([]);
+  const measuredCount = useRef(0);
+
+  const avgItemHeight = useMemo(() => {
+    if (measuredHeights.length === 0) return 120; // fallback
+    const sum = measuredHeights.reduce((a, b) => a + b, 0);
+    return Math.round(sum / measuredHeights.length);
+  }, [measuredHeights]);
 
   // Toggle fonksiyonları
   const toggleCategory = (cat: string) => {
@@ -56,7 +66,6 @@ export default function ListScreen() {
 
   // Filtreleme ve sıralama
   const filteredData = useMemo(() => {
-    // Render başlama zamanı
     setRenderStart(Date.now());
 
     let filtered = data.filter(item => {
@@ -83,7 +92,6 @@ export default function ListScreen() {
       return true;
     });
 
-    // Sıralama
     if (sortOption) {
       filtered.sort((a, b) => {
         switch (sortOption) {
@@ -270,12 +278,13 @@ export default function ListScreen() {
         </View>
       )}
 
-      {/* Liste */}
-      <FlatList
+      {/* ⚡ FlashList */}
+      <FlashList
         data={filteredData}
         keyExtractor={(item, index) => item.id ?? String(index)}
         contentContainerStyle={{ paddingVertical: 10 }}
-        renderItem={({ item }) => (
+        estimatedItemSize={avgItemHeight}
+        renderItem={({ item, index }) => (
           <TouchableOpacity
             onPress={() => navigation.navigate('Detail', { cargo: item })}
             style={[
@@ -284,6 +293,13 @@ export default function ListScreen() {
                 ? styles.cardDirty
                 : {},
             ]}
+            onLayout={e => {
+              if (measuredCount.current < 10) {
+                const { height } = e.nativeEvent.layout;
+                setMeasuredHeights(prev => [...prev, height]);
+                measuredCount.current += 1;
+              }
+            }}
           >
             <Text style={styles.cardTitle}>{item.name}</Text>
             <Text style={styles.cardSubtitle}>
@@ -299,18 +315,18 @@ export default function ListScreen() {
             No results found
           </Text>
         }
-        // 🔥 Render bittiğinde süreyi hesapla (daha güvenilir)
-        onContentSizeChange={() => {
+        onLoad={() => {
           if (renderStart) {
             const duration = Date.now() - renderStart;
-            console.log(`🔎 FlatList render süresi: ${duration} ms`);
+            console.log(`⚡ FlashList render süresi: ${duration} ms`);
           }
         }}
       />
 
       {/* Sayaç */}
       <Text style={styles.counter}>
-        Total: {data.length} | Filtered: {filteredData.length}
+        Total: {data.length} | Filtered: {filteredData.length} | AvgItem:{' '}
+        {avgItemHeight}px
       </Text>
     </View>
   );
