@@ -35,12 +35,12 @@ export default function CreateScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 20 }}>Batarya Seviyesi:</Text>
+      {/* <Text style={{ fontSize: 20 }}>Batarya Seviyesi:</Text>
       <Text style={{ fontSize: 28, fontWeight: 'bold' }}>
         {battery !== null ? `${battery}%` : 'Yükleniyor...'}
       </Text>
 
-      <Button title="Login with Fingerprint/FaceID" onPress={auth} />
+      <Button title="Login with Fingerprint/FaceID" onPress={auth} /> */}
 
       <Text style={styles.title}>🚀 Cargo Data Generator</Text>
 
