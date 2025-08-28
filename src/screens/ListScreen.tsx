@@ -325,8 +325,7 @@ export default function ListScreen() {
 
       {/* Sayaç */}
       <Text style={styles.counter}>
-        Total: {data.length} | Filtered: {filteredData.length} | AvgItem:{' '}
-        {avgItemHeight}px
+        Total: {data.length} | Filtered: {filteredData.length}
       </Text>
     </View>
   );
